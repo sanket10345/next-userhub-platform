@@ -33,45 +33,6 @@ next-userhub-platform/
 
 ---
 
-## 🧪 Run All Services Together *(Under Development)*
-
-> **Note:** The following instructions for running all services together are currently under active development.  
-> Changes to configuration details or integrations may occur.
-
-### 1️⃣ Clone the Repo
-
-```bash
-git clone https://github.com/your-username/next-userhub-platform.git
-cd next-userhub-platform
-```
-
-### 2️⃣ Run All Services
-
-From the project root, run:
-
-```bash
-docker-compose up --build
-```
-
-This command will build and launch:
-- 2 backend containers (`backend1`, `backend2`)
-- 2 frontend containers (`frontend1`, `frontend2`)
-- A MongoDB container with optional seed data (from `./backend/dump`)
-- NGINX containers for load balancing:
-  - **Frontend** available on port `3000`
-  - **Backend API** available on port `4000`
-
-*These instructions and configurations are under development.*
-
-### 3️⃣ Access the App *(Under Development)*
-
-- 🌐 **Frontend**: [http://localhost:3000](http://localhost:3000)
-- 🔧 **Backend API**: [http://localhost:4000/user](http://localhost:4000/user)
-
-*Access details are subject to change as configurations are updated.*
-
----
-
 ## 🔄 Running Services Separately
 
 ### Running the Frontend Independently
@@ -90,7 +51,14 @@ This command will build and launch:
 
 3. **Access the Frontend:**
 
-   It will be available at its configured port (typically [http://localhost:3000](http://localhost:3000)).
+   The service will be available at its configured port (typically [http://localhost:3000](http://localhost:3000)).
+
+4. **Tear Down the Frontend:**
+
+   When finished, run:
+   ```bash
+   docker-compose down -v
+   ```
 
 ---
 
@@ -116,16 +84,61 @@ This command will build and launch:
 
 4. **Access the Backend API:**
 
-   It should be available at its configured port (typically [http://localhost:4000/user](http://localhost:4000/user)).
+   The API should be available at its configured port (typically [http://localhost:4000/user](http://localhost:4000/user)).
+
+5. **Tear Down the Backend:**
+
+   When finished, run:
+   ```bash
+   docker-compose down -v
+   ```
 
 ---
 
-## 🧼 Tear Down
+## 🚫 Run All Services Together *(Disabled - Under Development)*
 
-To stop and remove all containers, networks, and volumes from the project root, run:
+> **Note:** The following instructions are under active development and are currently disabled. The full-stack integration is not enabled at this time.
+
+<!--
+### 1️⃣ Clone the Repo
 
 ```bash
-docker-compose down -v
+git clone https://github.com/your-username/next-userhub-platform.git
+cd next-userhub-platform
+```
+
+### 2️⃣ Run All Services
+
+From the project root, run:
+
+```bash
+docker-compose up --build
+```
+
+This command will build and launch:
+- 2 backend containers (`backend1`, `backend2`)
+- 2 frontend containers (`frontend1`, `frontend2`)
+- A MongoDB container with optional seed data (from `./backend/dump`)
+- NGINX containers for load balancing:
+  - **Frontend** available on port `3000`
+  - **Backend API** available on port `4000`
+
+*These instructions are under development.*
+  
+### 3️⃣ Access the App
+
+- 🌐 **Frontend**: [http://localhost:3000](http://localhost:3000)
+- 🔧 **Backend API**: [http://localhost:4000/user](http://localhost:4000/user)
+-->
+
+---
+
+## 🧼 Tear Down (Full Stack)
+
+If running the entire stack (once enabled) or any service from the project root, you can stop and remove all containers, networks, and volumes with:
+
+```bash
+docker-compose down -v --remove-orphans
 ```
 
 ---
@@ -136,5 +149,3 @@ For detailed instructions and development guides, see:
 
 - [`frontend/README.md`](./frontend/README.md)
 - [`backend/README.md`](./backend/README.md)
-
----
