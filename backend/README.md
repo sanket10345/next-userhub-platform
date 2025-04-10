@@ -1,14 +1,3 @@
-Awesome! Here's an updated, complete, and **well-structured `README.md`** for your **Express + MongoDB backend**, with:
-
-- Mongoose **User model** explanation  
-- **Joi validation** schema breakdown  
-- Beautified **project structure**
-- Notes on **MongoDB dump auto-loading**
-- **Load balancing setup**
-- Container roles and service flow
-
----
-
 ### 📝 Filename: `README.md`
 
 ```markdown
