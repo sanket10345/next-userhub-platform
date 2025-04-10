@@ -27,7 +27,7 @@ A robust **Express.js** + **MongoDB** backend for managing user data. This backe
 
 ## 📁 Project Structure
 
-```
+```plaintext
 userhub-backend/
 │
 ├── server.js              # Main entry – DB connection + logging + start
