@@ -1,0 +1,21 @@
+# Use lightweight Node.js base
+FROM node:18-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Install dependencies
+COPY package*.json ./
+RUN npm install
+
+# Copy application code
+COPY . .
+
+# ✅ Add this line to make sure the logs folder exists
+RUN mkdir -p /app/logs
+
+# Expose app port
+EXPOSE 4000
+
+# Run the app
+CMD ["node", "server.js"]

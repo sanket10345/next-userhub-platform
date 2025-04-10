@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:6.0.13-jammy
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+      - ./dump:/dump
+      - ./mongo-init:/docker-entrypoint-initdb.d
+    command: ["bash", "/docker-entrypoint-initdb.d/restore.sh"]
+    restart: always
+
+  backend1:
+    build: .
+    ports:
+      - "4001:4000"
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/usersdb
+      - PORT=4000
+      - CONTAINER_NAME=backend2
+    depends_on:
+      - mongo
+
+  backend2:
+    build: .
+    ports:
+      - "4002:4000"
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/usersdb
+      - PORT=4000
+      - CONTAINER_NAME=backend2
+    depends_on:
+      - mongo
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "4000:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - backend1
+      - backend2
+
+volumes:
+  mongo-data:
