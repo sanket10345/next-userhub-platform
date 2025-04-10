@@ -143,6 +143,48 @@ docker-compose down -v --remove-orphans
 
 ---
 
+### 🧹 Docker Cleanup Guide
+
+Over time, your system can collect a lot of Docker images — especially when frequently rebuilding with `docker-compose`. Here’s how to keep things clean:
+
+---
+
+#### 🔥 1. Remove Dangling Images  
+Dangling images are layers left behind by builds that aren’t tagged or used.
+
+```bash
+docker image prune -f
+```
+
+> 💡 Safe to run anytime. Removes only unused `<none>` images.
+
+---
+
+#### 🔥 2. Remove Unused Images by `docker-compose` Naming  
+Target all the images built by `docker-compose` for frontend and backend.
+
+```bash
+docker rmi $(docker images "next-userhub-platform*" -q)
+docker rmi $(docker images "backend-backend*" -q)
+docker rmi $(docker images "frontend-frontend*" -q)
+```
+
+> 🧼 These are likely duplicated across builds when testing changes. Removing them helps free space and avoids confusion.
+
+---
+
+#### 🚨 Optional: Remove **All** Unused Images  
+Wanna go nuclear and clean everything not actively used by a container?
+
+```bash
+docker image prune -a -f
+```
+
+> ⚠️ This removes **all unused images**. Only do this if you’re sure!
+
+---
+---
+
 ## 📄 More Info
 
 For detailed instructions and development guides, see:
