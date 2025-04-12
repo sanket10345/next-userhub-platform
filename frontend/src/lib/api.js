@@ -1,7 +1,14 @@
 import axios from 'axios';
 
+// Choose base URL based on environment (server or client)
+const isServer = typeof window === 'undefined';
+
+const baseURL = isServer
+  ? process.env.API_INTERNAL_URL || 'http://localhost:4000'
+  : process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+
 const apiClient = axios.create({
-  baseURL: 'http://localhost:4000/user',
+  baseURL: `${baseURL}/user`,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -10,13 +17,10 @@ const apiClient = axios.create({
 // Request Interceptor
 apiClient.interceptors.request.use(
   (config) => {
-    // Example: Add token if using auth
-    // const token = localStorage.getItem('token');
-    // if (token) {
-    //   config.headers.Authorization = `Bearer ${token}`;
-    // }
-
-    console.log(`[Request] ${config.method.toUpperCase()} ${config.url}`, config.data || '');
+    console.log(
+      `[Request] ${config.method.toUpperCase()} ${config.baseURL}${config.url}`,
+      config.data || ''
+    );
     return config;
   },
   (error) => {
@@ -28,7 +32,7 @@ apiClient.interceptors.request.use(
 // Response Interceptor
 apiClient.interceptors.response.use(
   (response) => {
-    console.log(`[Response]`, response);
+    console.log(`[Response]`, response.status, response.data);
     return response;
   },
   (error) => {
